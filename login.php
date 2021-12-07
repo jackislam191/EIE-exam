@@ -2,9 +2,6 @@
 
 include_once('header.php');
 
-session_start();
-    include("./config/db.php");
-    $user_data = check_login($con);
 ?>
 
 <html lang="en">
@@ -16,17 +13,31 @@ session_start();
 </head>
 <body>
     <div id="box">
-            <form method="POST">
+        <?php
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == 'emptyInput') {
+                    echo "<h1>Please fill in all the fields!</h1>";
+                }
+                else if ($_GET['error'] == 'wrongusername') {
+                    echo "<h1>Please type the correct username!</h1>";
+                }
+                else if ($_GET['error'] == 'wrongpassword') {
+                    echo "<h1>Please type the correct password!</h1>";
+                }
+            }
+        ?>
+            <form action="includes/login.inc.php" method="POST">
                 <label>Username</label>
                 <input type="text" name="username">
-
                 <br>
 
                 <label>Password</label>
                 <input type="password" name="password">
 
                 <br>
-                <input type="submit" value="login">
+                <button type="submit" name="submit" id="submit" class="btn btn-outline-primary btn-block">
+                        Login 
+                </button>
 
                 <a href="register.php" >
                     <!-- <button> -->

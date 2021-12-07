@@ -1,13 +1,9 @@
 <?php 
 
-
-session_start();
-    include_once('header.php');
-    include("./config/db.php");
-    include("./function.php");
-
-    $user_data = check_login($con);
-
+include_once('header.php');
 
 ?>
+<html>
+<h1>home page</h1>
 
+</html>

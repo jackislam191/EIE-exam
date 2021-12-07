@@ -5,10 +5,29 @@
 
 <html>
     <body>
-
     <div class="App">
         <div class="vertical-center">
             <div class="inner-block">
+                <?php 
+                    //error handler
+                    if (isset($_GET["error"])) {
+                        if ($_GET["error"] == "emptyinput") {
+                            echo "<h1>Please fill in all the fields!</h1>";
+                        }
+                        else if ($_GET["error"] == "invaliduserid") {
+                            echo "<h1>Your username must be numbers and characters</h1>";
+                        }
+                        else if ($_GET["error"] == "invalidemail") {
+                            echo "<h1>Please input correct email!</h1>";
+                        }
+                        else if ($_GET["error"] == "sqlStmtError") {
+                            echo "<h1>User existed! Please use another username</h1>";
+                        }
+                        else if ($_GET["error"] == "none") {
+                            echo "<h1>You are successfully registered!</h1>";
+                        }
+                    }
+                ?>
                 <form action="includes/register.inc.php" method="post">
                     <h3>Register Page</h3>
                     <div class="form-group">

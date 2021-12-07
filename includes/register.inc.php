@@ -1,7 +1,6 @@
 <?php
 
 if (isset($_POST["submit"])){
-        var_dump($_POST);
         $username = $_POST['nickname'];
         $password = $_POST['password'];
         $email = $_POST['email'];

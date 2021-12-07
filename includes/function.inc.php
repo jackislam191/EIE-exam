@@ -71,17 +71,56 @@
             exit();
         }
 
-        //hashed passwrod
-        //$hashedPassword = password_hash($password,PASSWORD_DEFAULT);
-        //mysqli_stmt_bind_param($stmt, "ssssss", $username, $hashedPassword, $email, $image_upload, $gender, $birthday );
-
+        // hashed passwrod
         // number of "s" refers to the number of string types in variables
-        mysqli_stmt_bind_param($stmt, "ssssss", $username, $password, $email, $image_upload, $gender, $birthday );
+        $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
+        mysqli_stmt_bind_param($stmt, "ssssss", $username, $hashedPassword, $email, $image_upload, $gender, $birthday );
+
+        // mysqli_stmt_bind_param($stmt, "ssssss", $username, $password, $email, $image_upload, $gender, $birthday );
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         
         header("location: ../register.php?error=none");
         exit();
 
+        
+    }
+
+    function emptyLoginInput($username, $password) {
+        $result = null;
+        if (empty($username) || empty($password)) {
+            $result = true;
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    function loginUser($conn, $username, $password) {
+        $userExist = checkUserExist($conn, $username, $username);
+    
+        if($userExist === false) {
+            header("location: ../login.php?error=wrongusername");
+            exit();
+        }
+        //if return $row -> it would be the data  in db
+        $verify_password = $userExist["password"];
+        
+        //for hashed password
+        $passwordCheck = password_verify($password, $verify_password);
+    
+        if ($passwordCheck == false) {
+            header("location: ../login.php?error=wrongpassword");
+            exit();
+    
+        } else if ($passwordCheck == true) {
+            session_start();
+            $_SESSION['user_id'] = $userExist['customer_id'];
+            $_SESSION['username'] = $userExist['nickname'];
+            // var_dump($_SESSION['username']);
+            header("location: ../index.php");
+            exit();
+        }
         
     }
