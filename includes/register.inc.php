@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST["submit"])){
-
+        var_dump($_POST);
         $username = $_POST['nickname'];
         $password = $_POST['password'];
         $email = $_POST['email'];
@@ -31,7 +31,12 @@ if (isset($_POST["submit"])){
     //     header("location: ../register.php?error=invalidemail");
     //     exit();
     // }
+    if (checkUserExist($conn, $username, $email) !== false) {
+        header("location: ../register.php?error=userExisted");
+        exit();
+    }
 
+    createUser($conn, $username, $password, $email, $image_upload, $gender, $birthday);
 }
 else {
     header("location: ../register.php");

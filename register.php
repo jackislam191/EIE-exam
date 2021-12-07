@@ -1,31 +1,5 @@
 <?php
-
-session_start();
     include_once('header.php');
-    include("./config/db.php");
-    // include("function.php");
-
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $username = $_POST['nickname'];
-        $password = $_POST['password'];
-        $email = $_POST['email'];
-        $image_upload = $_POST['image'];
-        $gender = $_POST['gender'];
-        $birthday = $_POST['birth-date'];
-
-        if (!empty($username) && !empty($password) && !empty($email) && !empty($image_upload) && !empty($gender) && !empty($birthday) ){ 
-            $sql = "insert into customers (username, password, email, image_upload, gender, birthday) VALUES ('nickname', 'password', 'email', 'password', 'profile_image', 'gender', 'birthday')";
-
-            mysqli_query($sql);
-
-            header("Location: login.php");
-
-            die;
-        }
-        else{
-            echo "Please enter valid information!";
-        }
-    }
 ?>
 
 
@@ -35,7 +9,7 @@ session_start();
     <div class="App">
         <div class="vertical-center">
             <div class="inner-block">
-                <form action="register.inc.php" method="post">
+                <form action="includes/register.inc.php" method="post">
                     <h3>Register Page</h3>
                     <div class="form-group">
                         <label>Nickname</label>
